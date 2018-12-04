@@ -6,38 +6,34 @@
     $cantidad = $_POST["cantidad"];
 
     if(isset($_SESSION["Productos"])){
-        
-        
-
-        /*$arrayProductos = explode(":",$_SESSION["Productos"]);
+        $arrayProductos = explode(":",$_SESSION["Productos"]);
         $enc = false;
 
-        for($i = 0; $i < count($arrayProductos); $i++){
-            $valor1 = getProducto($arrayProductos[$i]);
-            $valor2 = getProducto($producto);
-
-            $enc = comprobar($valor1, $valor2);
+        for($i = 0; $i < count($arrayProductos) && $enc == false; $i++){
+            $enc = comprobar(getProducto($arrayProductos[$i]), getProducto($producto));
 
             if($enc == true){
-                echo $enc."<br>";
-            }else{
-                $sesion = $_SESSION["Productos"].":".$arrayProductos[$i];
+                $arrayProductos[$i] = getId($arrayProductos[$i])."-".getPrecio($arrayProductos[$i])."-".getProducto($arrayProductos[$i])."-".editCantidad($arrayProductos[$i],$cantidad);
+                $enc = true;
             }
-            $_SESSION["Productos"] = $sesion;
-        }*/
-        
-        //Añadimos el producto nuevo a la sesion
-        $_SESSION["Productos"] .= ":".$producto."-".$cantidad;
+        }
+       
+        if($enc == true){
+            for($i = 0; $i < count($arrayProductos); $i++){
+                if($i == 0){
+                    $_SESSION["Productos"] = $arrayProductos[$i];
+                }else{
+                    $_SESSION["Productos"] .= ":".$arrayProductos[$i];
+                }
+            }
 
-        //Mostramos todos los productos de la sesion
+            $enc = false;
+        }else{
+            $_SESSION["Productos"] .= ":".$producto."-".$cantidad;
+        }
+
         echo $_SESSION["Productos"];
-        echo "<hr>";
-
-        //Separamos todos los productos de la sesion por ":" y lo añadimos a un array
-        $arrayProductos = explode(":",$_SESSION["Productos"]);
-
-        //Mostramos el array
-        print_r($arrayProductos);
+        
     }else{
         $_SESSION["Productos"] = $producto."-".$cantidad;
         echo $_SESSION["Productos"];
@@ -50,6 +46,21 @@
         return $datos[2];
     }
 
+    function getId($valor){
+        $datos = explode("-",$valor);
+        return $datos[0];
+    }
+
+    function getPrecio($valor){
+        $datos = explode("-",$valor);
+        return $datos[1];
+    }
+
+    function editCantidad($valor1, $valor2){
+        $datos = explode("-",$valor1);
+        return ($datos[3]+$valor2);
+    }
+
     function comprobar($valor1, $valor2){
         $encontrado = false;
         if($valor1 == $valor2){
@@ -57,5 +68,4 @@
         }
         return $encontrado;
     }
-    
 ?>
