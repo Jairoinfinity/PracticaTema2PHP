@@ -1,0 +1,23 @@
+.articulo{
+    float: left;
+    margin: 25px;
+}
+
+.titulo{
+    width: 200px;
+    background-color: #f47d42;
+    text-align: center;
+}
+
+.imgArticulo{
+    width: 150px;
+    align-content: center;
+}
+
+.precio{
+    width: 200px;
+    color: #c47215;
+    background-color: #3d95e2;
+    text-align: center;
+    font-style: inherit;
+}
