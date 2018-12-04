@@ -32,11 +32,11 @@
             $_SESSION["Productos"] .= ":".$producto."-".$cantidad;
         }
 
-        echo $_SESSION["Productos"];
+        //echo $_SESSION["Productos"];
         
     }else{
         $_SESSION["Productos"] = $producto."-".$cantidad;
-        echo $_SESSION["Productos"];
+        //echo $_SESSION["Productos"];
     }
     
     
@@ -69,3 +69,39 @@
         return $encontrado;
     }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+        </tr>
+        <?php
+            $arrayProductos = explode(":",$_SESSION["Productos"]);
+            for($i = 0; $i < count($arrayProductos); $i++){
+                $datos = explode("-",$arrayProductos[$i]);
+
+                echo "<tr>";
+                echo "<td>".$datos[0]."</td>";
+                echo "<td>".$datos[2]."</td>";
+                echo "<td>".$datos[1]."</td>";
+                echo "<td>".$datos[3]."</td>";
+                echo "</tr>";
+            }
+        ?>
+    </table>
+</body>
+</html>
+
+
+
