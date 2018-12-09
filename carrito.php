@@ -4,41 +4,45 @@
 
     $producto = $_POST["product"];
     $cantidad = $_POST["cantidad"];
+    $compra = $_POST["anadido"];
 
-    if(isset($_SESSION["Productos"])){
-        $arrayProductos = explode(":",$_SESSION["Productos"]);
-        $enc = false;
-
-        for($i = 0; $i < count($arrayProductos) && $enc == false; $i++){
-            $enc = comprobar(getProducto($arrayProductos[$i]), getProducto($producto));
-
-            if($enc == true){
-                $arrayProductos[$i] = getId($arrayProductos[$i])."-".getPrecio($arrayProductos[$i])."-".getProducto($arrayProductos[$i])."-".editCantidad($arrayProductos[$i],$cantidad);
-                $enc = true;
-            }
-        }
-       
-        if($enc == true){
-            for($i = 0; $i < count($arrayProductos); $i++){
-                if($i == 0){
-                    $_SESSION["Productos"] = $arrayProductos[$i];
-                }else{
-                    $_SESSION["Productos"] .= ":".$arrayProductos[$i];
+    if($compra == "si"){
+        if(isset($_SESSION["Productos"])){
+            $arrayProductos = explode(":",$_SESSION["Productos"]);
+            $enc = false;
+    
+            for($i = 0; $i < count($arrayProductos) && $enc == false; $i++){
+                $enc = comprobar(getProducto($arrayProductos[$i]), getProducto($producto));
+    
+                if($enc == true){
+                    $arrayProductos[$i] = getId($arrayProductos[$i])."-".getPrecio($arrayProductos[$i])."-".getProducto($arrayProductos[$i])."-".editCantidad($arrayProductos[$i],$cantidad);
+                    $enc = true;
                 }
             }
-
-            $enc = false;
+           
+            if($enc == true){
+                for($i = 0; $i < count($arrayProductos); $i++){
+                    if($i == 0){
+                        $_SESSION["Productos"] = $arrayProductos[$i];
+                    }else{
+                        $_SESSION["Productos"] .= ":".$arrayProductos[$i];
+                    }
+                }
+    
+                $enc = false;
+            }else{
+                $_SESSION["Productos"] .= ":".$producto."-".$cantidad;
+            }
+    
+            //echo $_SESSION["Productos"];
+            
         }else{
-            $_SESSION["Productos"] .= ":".$producto."-".$cantidad;
+            $_SESSION["Productos"] = $producto."-".$cantidad;
+            //echo $_SESSION["Productos"];
         }
-
-        //echo $_SESSION["Productos"];
-        
-    }else{
-        $_SESSION["Productos"] = $producto."-".$cantidad;
-        //echo $_SESSION["Productos"];
     }
     
+    $compra = "no";
     
 
     function getProducto($valor){
@@ -91,6 +95,12 @@
             for($i = 0; $i < count($arrayProductos); $i++){
                 $datos = explode("-",$arrayProductos[$i]);
 
+                if($i == 0){
+                    $_SESSION["total"] = ($datos[1]*$datos[3]);
+                }else{
+                    $_SESSION["total"] += ($datos[1]*$datos[3]);
+                }
+
                 echo "<tr>";
                 echo "<td>".$datos[0]."</td>";
                 echo "<td>".$datos[2]."</td>";
@@ -98,8 +108,16 @@
                 echo "<td>".$datos[3]."</td>";
                 echo "</tr>";
             }
+            echo "<tr>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td>Total:</td>";
+                echo "<td>".$_SESSION['total']."</td>";
+                echo "</tr>";
         ?>
     </table>
+    <a href="inicio.php"><button>Seguir comprando</button></a>
+    <a href="pedidos.php"><button>Procesar pedido</button></a>
 </body>
 </html>
 
