@@ -26,7 +26,7 @@
                 setcookie("historial",$_COOKIE["idCompra"]."-".$fecha." ".$hora."-".$_SESSION["total"],time()+31540000);
             }
 
-            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
+            echo "<div class='alert alert-warning alert-dismissible fade show shadow-lg' role='alert'>";
             echo "<strong>Pedido realizado Correctamente!</strong> Puede ver sus anteriores pedidos en la tabla de abajo.";
             echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>";
             echo "<span aria-hidden='true'>&times;</span>";
@@ -40,7 +40,7 @@
 
     <div class="card text-center">
         <div class="card-header">
-            Lista de Pedidos Realizados
+            <h1>Lista de Pedidos Realizados</h1>
         </div>
         <div class="card-body card-text">
             <table class="table table-striped">

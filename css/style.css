@@ -5,4 +5,9 @@
 .articulo {
     margin-top: 50px;
     margin-right: 15px;
+    background-color: rgb(158, 208, 251);
+}
+
+.sep {
+    margin-bottom: 25px;
 }

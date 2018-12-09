@@ -87,7 +87,7 @@
 
     <div class="card text-center">
         <div class="card-header">
-            Lista del Pedido
+            <h1>Lista del Pedido</h1>
         </div>
         <div class="card-body card-text">
             <table class="table table-striped">
