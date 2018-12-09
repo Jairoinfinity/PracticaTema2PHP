@@ -1,39 +1,8 @@
-div{
+/*div {
     border: 1px solid black;
-}
-.articulos{
-    position: absolute;
-}
-.articulo{
-    float: left;
-    margin: 25px;
-    width: 200px;
-    height: 250px;
-}
+}*/
 
-.titulo{
-    width: 200px;
-    background-color: #f47d42;
-    text-align: center;
-}
-
-.imgArticulo{
-    width: 150px;
-    align-content: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.precio{
-    width: 200px;
-    color: #c47215;
-    background-color: #3d95e2;
-    text-align: center;
-    font-style: inherit;
-}
-
-.formulario{
+.articulo {
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-right: 15px;
 }
