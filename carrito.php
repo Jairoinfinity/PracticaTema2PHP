@@ -98,7 +98,7 @@
                 <th>Cantidad</th>
             </tr>
             <?php
-                if(isset($_POST["anadido"])){
+                if(isset($_SESSION["Productos"])){
                     $arrayProductos = explode(":",$_SESSION["Productos"]);
                     for($i = 0; $i < count($arrayProductos); $i++){
                         $datos = explode("-",$arrayProductos[$i]);
@@ -123,7 +123,7 @@
             <a href="pedidos.php" class="btn btn-primary">Procesar pedido</a>
         </div>
         <div class="card-footer text-muted">
-            <?php if(isset($_POST["anadido"])){echo "Total: ".$_SESSION['total']."€";}?>
+            <?php if(isset($_SESSION["Productos"])){echo "Total: ".$_SESSION['total']."€";}?>
         </div>
     </div>
 
@@ -134,6 +134,5 @@
 
 </body>
 </html>
-
 
 

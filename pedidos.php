@@ -51,16 +51,20 @@
                 </tr>
                 <?php
             
-                    $arrayHistorial = explode("*",$_COOKIE["historial"]);
-                    for($i = count($arrayHistorial)-1; $i >= 0; $i--){
-                        $datos = explode("-",$arrayHistorial[$i]);
-
-                        echo "<tr>";
-                        echo "<td>".$datos[0]."</td>";
-                        echo "<td>".$datos[1]."</td>";
-                        echo "<td>".$datos[2]."€</td>";
-                        echo "</tr>";
+                    
+                    if(isset($_COOKIE["historial"])){
+                        $arrayHistorial = explode("*",$_COOKIE["historial"]);
+                        for($i = count($arrayHistorial)-1; $i >= 0; $i--){
+                            $datos = explode("-",$arrayHistorial[$i]);
+    
+                            echo "<tr>";
+                            echo "<td>".$datos[0]."</td>";
+                            echo "<td>".$datos[1]."</td>";
+                            echo "<td>".$datos[2]."€</td>";
+                            echo "</tr>";
+                        }
                     }
+                    
             
 
                 session_destroy();
