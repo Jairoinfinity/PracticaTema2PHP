@@ -23,7 +23,7 @@
             if(isset($_COOKIE["historial"])){
                 setcookie("historial",$_COOKIE["historial"]."*".$_COOKIE["idCompra"]."-".$fecha." ".$hora."-".$_SESSION["total"],time()+31540000);
             }else{
-                setcookie("historial",$_COOKIE["idCompra"]."-".$fecha." ".$hora."-".$_SESSION["total"],time()+31540000);
+                setcookie("historial","0-".$fecha." ".$hora."-".$_SESSION["total"],time()+31540000);
             }
 
             echo "<div class='alert alert-warning alert-dismissible fade show shadow-lg' role='alert'>";

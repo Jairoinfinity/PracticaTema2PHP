@@ -1,12 +1,14 @@
 <?php
     session_start();
     //session_destroy();
+    if(isset($_POST["anadido"])){
+       $producto = $_POST["product"];
+        $cantidad = $_POST["cantidad"];
+        $compra = $_POST["anadido"]; 
+    }
 
-    $producto = $_POST["product"];
-    $cantidad = $_POST["cantidad"];
-    $compra = $_POST["anadido"];
+    if(isset($_POST["anadido"])){
 
-    if($compra == "si"){
         if(isset($_SESSION["Productos"])){
             $arrayProductos = explode(":",$_SESSION["Productos"]);
             $enc = false;
@@ -41,8 +43,6 @@
             //echo $_SESSION["Productos"];
         }
     }
-    
-    $compra = "no";
     
 
     function getProducto($valor){
@@ -98,22 +98,24 @@
                 <th>Cantidad</th>
             </tr>
             <?php
-                $arrayProductos = explode(":",$_SESSION["Productos"]);
-                for($i = 0; $i < count($arrayProductos); $i++){
-                    $datos = explode("-",$arrayProductos[$i]);
+                if(isset($_POST["anadido"])){
+                    $arrayProductos = explode(":",$_SESSION["Productos"]);
+                    for($i = 0; $i < count($arrayProductos); $i++){
+                        $datos = explode("-",$arrayProductos[$i]);
 
-                    if($i == 0){
-                        $_SESSION["total"] = ($datos[1]*$datos[3]);
-                    }else{
-                        $_SESSION["total"] += ($datos[1]*$datos[3]);
+                        if($i == 0){
+                            $_SESSION["total"] = ($datos[1]*$datos[3]);
+                        }else{
+                            $_SESSION["total"] += ($datos[1]*$datos[3]);
+                        }
+
+                        echo "<tr>";
+                        echo "<td>".$datos[0]."</td>";
+                        echo "<td>".$datos[2]."</td>";
+                        echo "<td>".$datos[1]."€</td>";
+                        echo "<td>".$datos[3]."</td>";
+                        echo "</tr>";
                     }
-
-                    echo "<tr>";
-                    echo "<td>".$datos[0]."</td>";
-                    echo "<td>".$datos[2]."</td>";
-                    echo "<td>".$datos[1]."€</td>";
-                    echo "<td>".$datos[3]."</td>";
-                    echo "</tr>";
                 }
             ?>
             </table>
@@ -121,7 +123,7 @@
             <a href="pedidos.php" class="btn btn-primary">Procesar pedido</a>
         </div>
         <div class="card-footer text-muted">
-            Total: <?php echo $_SESSION['total']."€"; ?>
+            <?php if(isset($_POST["anadido"])){echo "Total: ".$_SESSION['total']."€";}?>
         </div>
     </div>
 
