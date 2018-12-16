@@ -33,9 +33,11 @@
             echo "</button>";
             echo "</div>";
         }
-
-
         
+        if(isset($_COOKIE["historial"]) && isset($_POST["btPedido"])){
+            setcookie("idCompra","",time()-1);
+            setcookie("historial","",time()-1);
+        }
     ?>
 
     <div class="card text-center">
@@ -51,8 +53,36 @@
                 </tr>
                 <?php
             
-                    
-                    if(isset($_COOKIE["historial"])){
+                    if(isset($_COOKIE["historial"]) && isset($_POST["buPedido"])){
+                        $arrayHistorial = explode("*",$_COOKIE["historial"]);
+                        
+                        for($i = 0; $i < count($arrayHistorial)-1; $i++){
+                            if($i == 0){
+                                $auxDatos = $arrayHistorial[$i];
+                            }else{
+                                $auxDatos .= "*".$arrayHistorial[$i];
+                            }
+                        }
+
+                        if(count($arrayHistorial) > 1){
+                            setcookie("historial",$auxDatos,time()+31540000);
+                        }else{
+                            setcookie("idCompra","",time()-1);
+                            setcookie("historial","",time()-1);
+                        }
+                        if(count($arrayHistorial) != 0){
+                            for($i = count($arrayHistorial)-2; $i >= 0; $i--){
+                                $datos = explode("-",$arrayHistorial[$i]);
+        
+                                echo "<tr>";
+                                echo "<td>".$datos[0]."</td>";
+                                echo "<td>".$datos[1]."</td>";
+                                echo "<td>".$datos[2]."€</td>";
+                                echo "</tr>";
+                            }
+                        }
+                        
+                    }elseif(isset($_COOKIE["historial"])){
                         $arrayHistorial = explode("*",$_COOKIE["historial"]);
                         for($i = count($arrayHistorial)-1; $i >= 0; $i--){
                             $datos = explode("-",$arrayHistorial[$i]);
@@ -71,6 +101,14 @@
                 ?>
             </table>
             <a href="inicio.php" class="btn btn-primary">Volver al inicio</a>
+            <form action="pedidos.php" method="POST">
+                <input type="hidden" name="buPedido">
+                <input type="submit" class="btn btn-primary" value="Borrar ultimo pedido">
+            </form>
+            <form action="pedidos.php" method="POST">
+                <input type="hidden" name="btPedido">
+                <input type="submit" class="btn btn-primary" value="Borrar el historial">
+            </form>
         </div>
     </div>
     <!--Script de Bootstrap-->
